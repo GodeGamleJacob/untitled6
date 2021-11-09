@@ -1,6 +1,5 @@
 package com.company;
 
-import javax.imageio.metadata.IIOMetadataFormatImpl;
 import java.io.*;
 import java.util.Scanner;
 
@@ -11,29 +10,33 @@ public class Main {
         for (int i = 0; i < 20; i++) {
             tabel[i] = new Person();
         }
-        laesTxtFil(tabel);
-        udskriv(tabel, 4);
-        //skrivTilFil(p);
-        skrivDatFil(tabel, 4);
-        laesDatFil(tabel, 4);
-        udskriv(tabel, 4);
-        skrivObjFil(tabel, 4);
-        laesObjFil(tabel, 4);
+        int antalPersoner;
+        antalPersoner = laesTxtFil(tabel);
+        udskriv(tabel, antalPersoner);
+        skrivDatFil(tabel, antalPersoner);
+        antalPersoner = laesDatFil(tabel);
+        udskriv(tabel, antalPersoner);
+        skrivObjFil(tabel, antalPersoner);
+        antalPersoner = laesObjFil(tabel);
+        udskriv(tabel, antalPersoner);
     }
 
-    static void laesTxtFil(Person [] a) {
+    static int laesTxtFil(Person [] a) {
+        int i = 0;
         try {
             File nyFil = new File("NewFile.txt");
             Scanner ind = new Scanner(nyFil);
-            for (int i = 0; i < 4; i++) {
+            while (ind.hasNext()) {
                 a[i].setAlder(ind.nextInt());
                 a[i].setNavn(ind.next());
                 a[i].setTal(ind.nextDouble());
+                i++;
             }
             ind.close();
             } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        return i;
     }
 
     public static void udskriv (Person [] a, int antal) {
@@ -59,18 +62,21 @@ public class Main {
         }
     }
 
-    public static void laesDatFil(Person[] a, int antal) {
+    public static int laesDatFil(Person[] a) {
+        int i = 0;
         try{
             DataInputStream in = new DataInputStream(new FileInputStream("PersonDatFil.dat"));
-            for (int i = 0; i < antal; i++) {
+            while (in.available() > 0) {
                 a[i].setAlder(in.readInt());
                 a[i].setNavn(in.readUTF());
                 a[i].setTal(in.readDouble());
+                i++;
             }
             in.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return i;
     }
 
     public static void skrivObjFil (Person[] a, int antal) {
@@ -85,11 +91,13 @@ public class Main {
         }
     }
 
-    public static void laesObjFil (Person[] a, int antal) {
+    public static int laesObjFil (Person[] a) {
+        int i = 0;
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("PersonSerFil.ser"));
-            for (int i = 0; i < antal; i++) {
+            while (in.available() > 0) {
                 a[i] = (Person) in.readObject();
+                i++;
             }
             in.close();
             System.out.println("Hej.");
@@ -97,7 +105,7 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return i;
     }
 
 
