@@ -1,0 +1,4 @@
+1 Pernille 10,500
+2 Jacob 12,2
+3 Daniel 13,3
+4 Nicklas 14,4
