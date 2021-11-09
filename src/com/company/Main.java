@@ -10,25 +10,23 @@ public class Main {
         //datFil();
         //laesDatFil();
         Person [] tabel = new Person[20];
+        for (int i = 0; i < 20; i++) {
+            tabel[i] = new Person();
+        }
         laesTxtFil(tabel);
-
-        //udskriv(tabel, 4);
+        udskriv(tabel, 4);
         //skrivTilFil(p);
-
     }
 
     static void laesTxtFil(Person [] a) {
-        Person [] tabel = new Person[20];
         try {
             File nyFil = new File("NewFile.txt");
             Scanner ind = new Scanner(nyFil);
-            //for (int i = 0; i < 4; i++) {
-
-                tabel[0].setAlder(ind.nextInt());
-                System.out.println(tabel[0].getAlder());
-                //a[i].setNavn(ind.next());
-                //a[i].setTal(ind.nextDouble());
-            //}
+            for (int i = 0; i < 4; i++) {
+                a[i].setAlder(ind.nextInt());
+                a[i].setNavn(ind.next());
+                a[i].setTal(ind.nextDouble());
+            }
             ind.close();
             } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -36,11 +34,9 @@ public class Main {
     }
 
     public static void udskriv (Person [] a, int antal) {
-        //for (int i = 0; i < antal; i++) {
-
-            //System.out.format("%d %s %f", a[i].getAlder(), a[i].getNavn(), a[i].getTal());
-
-        //}
+        for (int i = 0; i < antal; i++) {
+            System.out.format("%d %s %f", a[i].getAlder(), a[i].getNavn(), a[i].getTal());
+        }
     }
 
     public static void skrivTilFil(Person p) {
